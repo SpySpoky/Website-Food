@@ -49,18 +49,18 @@ window.addEventListener('DOMContentLoaded', () => {
     const deadLine = '2025-05-11';
 
     function getTimeRemaining(endTime) {
-        const t = Date.parse(endTime) - Date.parse(new Date());
-        const days = Math.floor(t / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((t / (1000 * 60 * 60) % 24));
-        const minutes = Math.floor((t / 1000 / 60) % 60);
-        const sec = Math.floor((t / 1000) % 60);
+        const time_between = Date.parse(endTime) - Date.parse(new Date());
+        const days = Math.floor(time_between / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((time_between / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((time_between / (1000 * 60)) % 60);
+        const seconds = Math.floor((time_between / 1000) % 60);
 
         return {
-            'total': t,
+            'total': time_between,
             'days': days,
             'hours': hours,
             'minutes': minutes,
-            'seconds': sec
+            'seconds': seconds
         };
     }
 
@@ -76,15 +76,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
         function updateClock() {
             const t = getTimeRemaining(endTime);
-
-            days.innerHTML = (t.days < 10 ? `0${t.days}` : t.days);
-            //days.innerHTML = t.days;
+            days.innerHtml = (t.days < 10 ? `0${t.days}` : t.days);
             hours.textContent = (t.hours < 10 ? `0${t.hours}` : t.hours);
-            //hours.innerHTML = (t.hours);
-            minutes.innerHTML = (t.minutes < 10 ? `0${t.minutes}` : t.minutes);
-            //minutes.textContent = (t.minutes);
-            seconds.innerHTML = (t.seconds);
-
+            minutes.innerHtml = (t.minutes < 10 ? `0${t.minutes}` : t.minutes);
+            seconds.textContent = (t.seconds);
 
             if (t.total <= 0) {
                 clearInterval(timeInterval);
